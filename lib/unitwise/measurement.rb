@@ -32,6 +32,15 @@ module Unitwise
       end
     end
 
+    def convert_to_prefered
+      preferred_unit = Unitwise::PreferredUnitSystem.current.unit_for(self)
+      if preferred_unit.nil?
+        self
+      else
+        convert_to(preferred_unit)
+      end
+    end
+
     # Multiply this measurement by a number or another measurement
     # @param other [Numeric, Unitwise::Measurement]
     # @example

@@ -18,6 +18,7 @@ require 'unitwise/term'
 require 'unitwise/unit'
 require 'unitwise/search'
 require 'unitwise/errors'
+require 'unitwise/preferred_unit_system'
 
 # Unitwise is a library for performing mathematical operations and conversions
 # on all units defined by the [Unified Code for Units of Measure(UCUM).
@@ -54,6 +55,22 @@ module Unitwise
   # @api private
   def self.data_file(key)
     File.join path, 'data', "#{key}.yaml"
+  end
+
+  def self.preferred_units=(input)
+    Unitwise::PreferredUnitSystem.set_system(input)
+  end
+
+  def self.use_preferred_units(new_system)
+    old_system = Unitwise::PreferredUnitSystem.current
+    self.preferred_units = new_system
+    yield
+  ensure
+    self.preferred_units = old_system
+  end
+
+  def self.add_preferred_units(name, preferred_units)
+    Unitwise::PreferredUnitSystem.add_system(name, preferred_units)
   end
 end
 
