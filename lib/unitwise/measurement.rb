@@ -32,7 +32,7 @@ module Unitwise
       end
     end
 
-    def convert_to_prefered
+    def convert_to_preferred
       preferred_unit = Unitwise::PreferredUnitSystem.current.unit_for(self)
       if preferred_unit.nil?
         self

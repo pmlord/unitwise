@@ -17,10 +17,9 @@ module Unitwise
       end
 
       def set_system(unit_system)
-        @current = case unit_system.class
-                   when Symbol
+        @current = if unit_system.is_a? Symbol
                      named_systems[unit_system]
-                   when self.class
+                   elsif unit_system.is_a? self
                      unit_system
                    else
                      new(unit_system)
